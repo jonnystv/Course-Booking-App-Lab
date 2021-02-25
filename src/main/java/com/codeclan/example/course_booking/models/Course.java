@@ -1,5 +1,7 @@
 package com.codeclan.example.course_booking.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table( name = "courses")
+@Table(name = "courses")
 public class Course {
 
     @Id
@@ -23,56 +25,57 @@ public class Course {
     @Column(name = "rating")
     private int rating;
 
+//    @JsonIgnoreProperties({"customer", "course"})               // IGNORE THE COURSE FOR THIS BOOKING
+    @JsonBackReference
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"course"})
     private List<Booking> bookings;
 
     public Course(String name, String town, int rating) {
         this.name = name;
         this.town = town;
         this.rating = rating;
-        this.bookings = new ArrayList<Booking>;
+        this.bookings = new ArrayList<Booking>();
     }
 
     public Course(){}
 
-    public Long getCourseId() {
+    public Long getId() {
         return id;
     }
 
-    public void setCourseId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCourseName() {
+    public String getName() {
         return name;
     }
 
-    public void setCourseName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getCourseTown() {
+    public String getTown() {
         return town;
     }
 
-    public void setCourseTown(String town) {
+    public void setTown(String town) {
         this.town = town;
     }
 
-    public int getCourseRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setCourseRating(int rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
-    public List<Booking> getCourseBookings() {
+    public List<Booking> getBookings() {
         return bookings;
     }
 
-    public void setCourseBookings(List<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
 

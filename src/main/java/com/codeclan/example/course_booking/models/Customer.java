@@ -1,8 +1,11 @@
 package com.codeclan.example.course_booking.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.awt.print.Book;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,7 +13,7 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -22,55 +25,57 @@ public class Customer {
     @Column(name = "age")
     private int age;
 
+//    @JsonIgnoreProperties({"course","customer"})
+    @JsonBackReference
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"customer"})
     private List<Booking> bookings;
 
     public Customer(String name, String town, int age) {
         this.name = name;
         this.town = town;
         this.age = age;
+        this.bookings =  new ArrayList<Booking>();
     }
 
     public Customer(){}
 
-    public Long getCustomerId() {
+    public Long getId() {
         return id;
     }
 
-    public void setCustomerId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCustomerName() {
+    public String getName() {
         return name;
     }
 
-    public void setCustomerName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getCustomerTown() {
+    public String getTown() {
         return town;
     }
 
-    public void setCustomerTown(String town) {
+    public void setTown(String town) {
         this.town = town;
     }
 
-    public int getCustomerAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setCustomerAge(int age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public List<Booking> getCustomerBookings() {
+    public List<Booking> getBookings() {
         return bookings;
     }
 
-    public void setCustomerBookings(List<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
 

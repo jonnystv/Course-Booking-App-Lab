@@ -1,6 +1,8 @@
 package com.codeclan.example.course_booking.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -9,20 +11,22 @@ import javax.persistence.*;
 public class Booking {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column (name = "date")
     private String date;
 
+//    @JsonIgnoreProperties({"bookings"})
+    @JsonManagedReference
     @ManyToOne
-    @JoinColumn (name = "customer_id", nullable = false)
-    @JsonIgnoreProperties ({"bookings"})
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+//    @JsonIgnoreProperties({"bookings"})
+    @JsonManagedReference
     @ManyToOne
-    @JoinColumn (name = "course_id", nullable = false)
-    @JsonIgnoreProperties ({"bookings"})
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     public Booking(String date, Customer customer, Course course) {
@@ -41,27 +45,27 @@ public class Booking {
         this.id = id;
     }
 
-    public String getBookingDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setBookingDate(String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Customer getBookingCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setBookingCustomer(Customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public Course getBookingCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setBookingCourse(Course course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 }
