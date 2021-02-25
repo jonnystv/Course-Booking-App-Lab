@@ -31,6 +31,8 @@ public class Booking {
         this.course = course;
     }
 
+    public Booking(){}
+
     public Long getId() {
         return id;
     }
